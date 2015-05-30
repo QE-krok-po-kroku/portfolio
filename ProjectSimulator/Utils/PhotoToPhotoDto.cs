@@ -10,7 +10,9 @@ namespace ProjectSimulator.Utils
             IList<PhotoDto> result  = new List<PhotoDto>();
             foreach (var photo in photos)
             {
-                result.Add(new PhotoDto
+                if (photo.Grade != "very_bad")                
+                { 
+                    result.Add(new PhotoDto
                 {
                     Id = photo.Id,
                     Title = photo.Title,
@@ -18,7 +20,10 @@ namespace ProjectSimulator.Utils
                     Type = photo.Type,
                     Year = photo.Year   
 
-                });
+                }
+                
+                );
+                }
             }
             return result;
         }
