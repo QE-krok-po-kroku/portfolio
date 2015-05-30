@@ -13,7 +13,11 @@ namespace ProjectSimulator.Utils
                 result.Add(new PhotoDto
                 {
                     Id = photo.Id,
-                    Grade = photo.Grade
+                    Title = photo.Title,
+                    Grade = photo.Grade,
+                    Type = photo.Type,
+                    Year = photo.Year   
+
                 });
             }
             return result;
