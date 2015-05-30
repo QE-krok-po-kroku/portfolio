@@ -23,11 +23,13 @@ namespace ProjectSimulator.Controllers
         }
 
 //TODO: Sprint 1
-//        [Route("")]
-//        [HttpPost]
-//        public HttpResponseMessage Post([FromBody] /* type variable */)
-//        {
-//            return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = 0});
-//        }
-    }
+[Route("")]
+[HttpPost]
+public HttpResponseMessage Post([FromBody] Photo photo)
+{
+    _dao.AddPhoto(photo);
+    int photos=_dao.GetPhotos().Count();
+    return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
+}
+}
 }
