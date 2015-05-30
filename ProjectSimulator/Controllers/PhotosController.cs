@@ -31,39 +31,42 @@ namespace ProjectSimulator.Controllers
             foreach (Photo photo in postPhotos)
             {
 
-                bool photoOk = false;
+                bool photoOk = true;
                 IEnumerable<Photo> photoCollection = _dao.GetPhotos();
+
                 foreach (Photo colectPhoto in photoCollection)
                 {
                     //Test id
-                    if (!colectPhoto.Id.Equals(photo.Id))
-                    {
-                        photoOk = true;
-                    }
-
-                    //Test grade field
-                    if (
-                        colectPhoto.Grade.ToLower().Equals("new") ||
-                        colectPhoto.Grade.ToLower().Equals("good") ||
-                        colectPhoto.Grade.ToLower().Equals("bad") ||
-                        colectPhoto.Grade.ToLower().Equals("very_bad")
-                        )
-                    {
-                        photoOk = true;
-                    }
-
-                    //Test very bad
-                    if (
-                        colectPhoto.Grade.ToLower().Equals("very_bad")
-                        )
+                    if (colectPhoto.Id.Equals(photo.Id))
                     {
                         photoOk = false;
+                        break;
                     }
+                }
 
+                //Test grade field
+                if (
+                    (!photo.Grade.ToLower().Equals("new") &&
+                    !photo.Grade.ToLower().Equals("good") &&
+                    !photo.Grade.ToLower().Equals("bad") &&
+                    !photo.Grade.ToLower().Equals("very_bad")
+                    ) && photoOk == true
+                    )
+                {
+                    photoOk = false;
+                }
+
+                //Test very bad
+                if (
+                    photo.Grade.ToLower().Equals("very_bad")
+                    )
+                {
+                    photoOk = false;
                 }
 
                 if (photoOk == true)
                 {
+                    //System.Console.WriteLine("PhotoOK: " + photoOk + " Id: " + photo.Id);
                     _dao.AddPhoto(photo);
                 }
             }
