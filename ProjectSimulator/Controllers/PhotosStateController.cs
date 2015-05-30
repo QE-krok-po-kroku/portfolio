@@ -16,7 +16,17 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<PhotoDto> GetPhotosState()
         {
-            return PhotoToPhotoDto.Convert(_dao.GetPhotos().ToList());
+            List<Photo> list = new List<Photo>();
+
+            foreach (Photo colectPhoto in _dao.GetPhotos())
+            {
+                if (!colectPhoto.Grade.ToLower().Equals("very_bad") && !colectPhoto.Grade.ToLower().Equals("bad"))
+                {
+                    list.Add(colectPhoto);
+                }
+            }
+
+            return PhotoToPhotoDto.Convert(list);
         }
     }
 }
