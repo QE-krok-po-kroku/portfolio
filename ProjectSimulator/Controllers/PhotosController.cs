@@ -22,14 +22,34 @@ namespace ProjectSimulator.Controllers
             return new List<Photo>();
         }
 
-//TODO: Sprint 1
-[Route("")]
-[HttpPost]
-public HttpResponseMessage Post([FromBody] Photo photo)
-{
-    _dao.AddPhoto(photo);
-    int photos=_dao.GetPhotos().Count();
-    return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
-}
-}
+        //TODO: Sprint 1
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody] Photo[] postPhotos)
+        {
+
+            foreach (Photo photo in postPhotos)
+            {
+
+                //Test id
+                bool photoOk = true;
+                IEnumerable<Photo> photoCollection = _dao.GetPhotos();
+                foreach (Photo colectPhoto in photoCollection)
+                {
+                    if (colectPhoto.Id.Equals(photo.Id))
+                    {
+                        photoOk = false;
+                    }
+                }
+
+                if (photoOk == true)
+                {
+                    _dao.AddPhoto(photo);
+                }
+            }
+
+            int photos = _dao.GetPhotos().Count();
+            return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
+        }
+    }
 }
