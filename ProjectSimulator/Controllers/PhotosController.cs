@@ -67,11 +67,23 @@ namespace ProjectSimulator.Controllers
                 if (photoOk == true)
                 {
                     //System.Console.WriteLine("PhotoOK: " + photoOk + " Id: " + photo.Id);
+                    photo.Grade = photo.Grade.ToUpper();
                     _dao.AddPhoto(photo);
                 }
             }
 
-            int photos = _dao.GetPhotos().Count();
+            IEnumerable<Photo> countCollection = _dao.GetPhotos();
+            int badCount = 0;
+            int photos = countCollection.Count();
+            foreach (Photo colectPhoto in countCollection)
+            {
+                if (colectPhoto.Grade.ToLower().Equals("very_bad"))
+                {
+                    badCount++;
+                }
+            }
+
+            photos = photos - badCount;
             return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
         }
     }

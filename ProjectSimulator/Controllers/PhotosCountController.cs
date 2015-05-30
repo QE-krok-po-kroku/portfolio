@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using ProjectSimulator.Dao;
 using ProjectSimulator.Models;
+using System.Collections.Generic;
 
 namespace ProjectSimulator.Controllers
 {
@@ -13,8 +14,19 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public Count GetPhotosCount()
         {
-            //TODO: Sprint 3
-            return new Count() {PhotosCount = 0};
+
+            IEnumerable<Photo> countCollection = _dao.GetPhotos();
+            int photos = 0;
+
+            foreach (Photo colectPhoto in countCollection)
+            {
+                if (!colectPhoto.Grade.ToLower().Equals("very_bad"))
+                {
+                    photos++;
+                }
+            }
+
+            return new Count() { PhotosCount = photos };
         }
     }
 }

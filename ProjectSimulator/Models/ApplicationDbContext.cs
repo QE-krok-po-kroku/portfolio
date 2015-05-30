@@ -23,7 +23,7 @@ namespace ProjectSimulator.Models
                     Title = "Wielka Racza o świcie",
                     Type = "Pejzaż",
                     Year = 2008,
-                    Grade = "bad"
+                    Grade = "BAD"
                 },
                 new Photo
                 {
@@ -31,7 +31,7 @@ namespace ProjectSimulator.Models
                     Title = "Wilk w lesie",
                     Type = "Przyrodnicza",
                     Year = 2004,
-                    Grade = "very_bad"
+                    Grade = "VERY_BAD"
                 }
             };
 

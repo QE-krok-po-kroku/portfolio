@@ -10,7 +10,7 @@ namespace ProjectSimulator.Utils
             IList<PhotoDto> result  = new List<PhotoDto>();
             foreach (var photo in photos)
             {
-                if (photo.Grade != "very_bad")                
+                if (photo.Grade.ToLower() != "very_bad")                
                 { 
                     result.Add(new PhotoDto
                 {
