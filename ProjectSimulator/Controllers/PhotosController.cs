@@ -31,15 +31,35 @@ namespace ProjectSimulator.Controllers
             foreach (Photo photo in postPhotos)
             {
 
-                //Test id
-                bool photoOk = true;
+                bool photoOk = false;
                 IEnumerable<Photo> photoCollection = _dao.GetPhotos();
                 foreach (Photo colectPhoto in photoCollection)
                 {
-                    if (colectPhoto.Id.Equals(photo.Id))
+                    //Test id
+                    if (!colectPhoto.Id.Equals(photo.Id))
+                    {
+                        photoOk = true;
+                    }
+
+                    //Test grade field
+                    if (
+                        colectPhoto.Grade.ToLower().Equals("new") ||
+                        colectPhoto.Grade.ToLower().Equals("good") ||
+                        colectPhoto.Grade.ToLower().Equals("bad") ||
+                        colectPhoto.Grade.ToLower().Equals("very_bad")
+                        )
+                    {
+                        photoOk = true;
+                    }
+
+                    //Test very bad
+                    if (
+                        colectPhoto.Grade.ToLower().Equals("very_bad")
+                        )
                     {
                         photoOk = false;
                     }
+
                 }
 
                 if (photoOk == true)
