@@ -20,7 +20,7 @@ namespace ProjectSimulator.Controllers
 
             foreach (Photo colectPhoto in countCollection)
             {
-                if (!colectPhoto.Grade.ToLower().Equals("very_bad"))
+                if (!colectPhoto.Grade.ToLower().Equals("very_bad") && !colectPhoto.Grade.ToLower().Equals("bad"))
                 {
                     photos++;
                 }

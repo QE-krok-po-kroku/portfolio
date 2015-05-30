@@ -9,7 +9,7 @@ namespace ProjectSimulatorTests
         [TestMethod]
         public void TestMethod1()
         {
-
+            
         }
     }
 }

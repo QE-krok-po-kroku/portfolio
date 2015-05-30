@@ -22,9 +22,14 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<Photo> GetPhotos()
         {
+            List<Photo> photos = new List<Photo>();
             //TODO: Sprint 2
             //return new List<Photo>();
-            return _dao.GetPhotos().ToList();
+            foreach(var photo in _dao.GetPhotos())
+            {
+                if (photo.Grade != "BAD" && photo.Grade != "VERY_BAD") photos.Add(photo);
+            }
+            return photos;
         }
 
         /*
@@ -69,7 +74,7 @@ namespace ProjectSimulator.Controllers
 
                 //Test very bad
                 if (
-                    photo.Grade.ToLower().Equals("very_bad")
+                    photo.Grade.ToLower().Equals("very_bad") || photo.Grade.ToLower().Equals("bad")
                     )
                 {
                     photoOk = false;
@@ -89,7 +94,7 @@ namespace ProjectSimulator.Controllers
             int photos = countCollection.Count();
             foreach (Photo colectPhoto in countCollection)
             {
-                if (colectPhoto.Grade.ToLower().Equals("very_bad"))
+                if (colectPhoto.Grade.ToLower().Equals("very_bad") || colectPhoto.Grade.ToLower().Equals("bad"))
                 {
                     badCount++;
                 }
@@ -98,11 +103,11 @@ namespace ProjectSimulator.Controllers
             photos = photos - badCount;
             if (photoOkCount == 0)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new Count() { PhotosCount = photos });
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "HTTP POST 400");
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
+                return Request.CreateResponse(HttpStatusCode.OK, new Count() { PhotosCount = photos });
             }
         }
     }
