@@ -6,6 +6,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using ProjectSimulator.Models;
 using ProjectSimulator.Dao;
+using ProjectSimulator.Utils;
 
 namespace ProjectSimulator.Controllers
 {
@@ -22,7 +23,8 @@ namespace ProjectSimulator.Controllers
         public IEnumerable<Photo> GetPhotos()
         {
             //TODO: Sprint 2
-            return new List<Photo>();
+            //return new List<Photo>();
+            return _dao.GetPhotos().ToList();
         }
 
         /*

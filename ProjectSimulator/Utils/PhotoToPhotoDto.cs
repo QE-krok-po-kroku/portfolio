@@ -7,21 +7,19 @@ namespace ProjectSimulator.Utils
     {
         public static IList<PhotoDto> Convert(IList<Photo> photos)
         {
-            IList<PhotoDto> result  = new List<PhotoDto>();
+            IList<PhotoDto> result = new List<PhotoDto>();
             foreach (var photo in photos)
             {
-                if (photo.Grade.ToLower() != "very_bad")                
-                { 
+                if (photo.Grade.ToLower() != "very_bad")
+                {
                     result.Add(new PhotoDto
                 {
                     Id = photo.Id,
                     Title = photo.Title,
                     Grade = photo.Grade.ToLower(),
                     Type = photo.Type,
-                    Year = photo.Year   
-
+                    Year = photo.Year
                 }
-                
                 );
                 }
             }
