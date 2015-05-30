@@ -16,7 +16,7 @@ namespace ProjectSimulator.Utils
                 {
                     Id = photo.Id,
                     Title = photo.Title,
-                    Grade = photo.Grade,
+                    Grade = photo.Grade.ToLower(),
                     Type = photo.Type,
                     Year = photo.Year   
 

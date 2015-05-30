@@ -14,6 +14,9 @@ namespace ProjectSimulator.Controllers
     {
         readonly PhotoDao _dao = new PhotoDao();
 
+        /**
+         * Zwraca pusta liste zdjec
+         **/
         [Route("")]
         [HttpGet]
         public IEnumerable<Photo> GetPhotos()
@@ -22,11 +25,17 @@ namespace ProjectSimulator.Controllers
             return new List<Photo>();
         }
 
-        //TODO: Sprint 1
+        /*
+         * Dodaje zdjecia do DB, zwraca 400 jezeli nie dodano zadnego zdjecia
+         * 200 - jezeli dodano chociaz jedno
+         * Dane Grade sa zaminiana na duze litery
+         */
         [Route("")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] Photo[] postPhotos)
         {
+
+            int photoOkCount = 0;
 
             foreach (Photo photo in postPhotos)
             {
@@ -69,6 +78,7 @@ namespace ProjectSimulator.Controllers
                     //System.Console.WriteLine("PhotoOK: " + photoOk + " Id: " + photo.Id);
                     photo.Grade = photo.Grade.ToUpper();
                     _dao.AddPhoto(photo);
+                    photoOkCount++;
                 }
             }
 
@@ -84,7 +94,14 @@ namespace ProjectSimulator.Controllers
             }
 
             photos = photos - badCount;
-            return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
+            if (photoOkCount == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new Count() { PhotosCount = photos });
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhotosCount = photos });
+            }
         }
     }
 }
